@@ -1,6 +1,7 @@
 #include <vector>
 
-#include "../utils.hpp"
+#include <gtest/gtest.h>
+#include <gmock/gmock.h>
 
 using namespace std;
 
@@ -65,27 +66,35 @@ vector<bool> isArraySpecial(vector<int> &nums, vector<vector<int>> &queries) {
   return result;
 }
 
-int main() {
+TEST(Test3152, Test1) {
   std::vector<int> nums = {3, 4, 1, 2, 6};
   std::vector<std::vector<int>> queries = {{0, 4}};
 
-  printTestResult(isArraySpecial(nums, queries) == std::vector<bool>{false});
+  ASSERT_THAT(isArraySpecial(nums, queries), testing::ElementsAre(false));
+}
 
-  nums = {4, 3, 1, 6};
-  queries = {{0, 2}, {2, 3}};
+TEST(Test3152, Test2) {
+  std::vector<int> nums = {4, 3, 1, 6};
+  std::vector<std::vector<int>> queries = {{0, 2}, {2, 3}};
 
-  printTestResult(isArraySpecial(nums, queries) ==
-                  std::vector<bool>{false, true});
+  ASSERT_THAT(isArraySpecial(nums, queries), testing::ElementsAre(false, true));
+}
 
-  nums = {5, 9, 3};
-  queries = {{0, 2}, {2, 2}, {1, 2}, {1, 1}, {0, 2}, {0, 1}, {0, 1}, {1, 2}};
-  printTestResult(
-      isArraySpecial(nums, queries) ==
-      std::vector<bool>{false, true, false, true, false, false, false, false});
+TEST(Test3152, Test3) {
+  std::vector<int> nums = {5, 9, 3};
+  std::vector<std::vector<int>> queries = {{0, 2}, {2, 2}, {1, 2}, {1, 1},
+                                           {0, 2}, {0, 1}, {0, 1}, {1, 2}};
+  ASSERT_THAT(
+      isArraySpecial(nums, queries),
+      testing::ElementsAre(
+      false, true, false, true, false, false, false, false));
+}
 
-  nums = {3, 7, 3, 10, 5, 5};
-  queries = {{3, 4}, {1, 5}, {5, 5}, {0, 4}, {1, 2}, {2, 3}, {5, 5}, {0, 1}};
-  printTestResult(
-      isArraySpecial(nums, queries) ==
-      std::vector<bool>{true, false, true, false, false, true, true, false});
+TEST(Test3152, Test4) {
+  std::vector<int> nums = {3, 7, 3, 10, 5, 5};
+  std::vector<std::vector<int>> queries = {{3, 4}, {1, 5}, {5, 5}, {0, 4},
+                                           {1, 2}, {2, 3}, {5, 5}, {0, 1}};
+  ASSERT_THAT(
+      isArraySpecial(nums, queries),
+      testing::ElementsAre(true, false, true, false, false, true, true, false));
 }
